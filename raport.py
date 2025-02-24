@@ -8,6 +8,7 @@ from docx import Document
 from io import BytesIO
 
 from docx.shared import Inches
+         
 
 def generate_docx_with_table(dataframe, titlu):
     doc = Document()
@@ -36,15 +37,9 @@ def generate_docx_with_table(dataframe, titlu):
 
 @st.cache_data(show_spinner=False)
 def load_data_from_ftp():
-    ftp_host = 'users.utcluj.ro'
-    ftp_user = 'mbotos'
-    ftp_password = 'MartaLiisa2001_'
-
-    # Connect to the FTP server
-    ftp = ftplib.FTP(ftp_host)
-    ftp.login(ftp_user, ftp_password)
-
-    # Change to the directory where the .pkl files are stored
+    
+    ftp = ftplib.FTP("users.utcluj.ro", st.secrets['u'], st.secrets['p'])
+    ftp.encoding = "utf-8"  # Force UTF-8 encoding
     ftp.cwd('/public_html/Fise')
 
     # List all files in the directory
