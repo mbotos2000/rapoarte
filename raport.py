@@ -4,11 +4,8 @@ import pickle
 import io
 import pandas as pd
 from docx import Document
-
 from io import BytesIO
-
 from docx.shared import Inches
-         
 
 def generate_docx_with_table(dataframe, titlu):
     doc = Document()
@@ -80,14 +77,8 @@ def main():
     st.title("Generator rapoarte specializari")
     
     df = load_data_from_ftp()
-    #df.to_csv('date.csv', index=False)
+
     if df is not None:
-        #st.write("### Preview of Data")
-        #st.dataframe(df.head())
-        
-        #st.write("### Select Columns for Filtering")
-        #column_code=[,'M_2_4','M_2_7_2','M_7_1']
-        #column_name=['Specializarea','An','Tip disciplina', "Competente",]
         app_col=['M_8_2_1','M_8_2_2','M_8_2_3','M_8_2_4','M_8_2_5','M_8_2_6','M_8_2_7',
                  'M_8_2_8','M_8_2_9','M_8_2_10','M_8_2_11','M_8_2_12','M_8_2_13','M_8_2_14']
         curs_col=['M_8_1_1','M_8_1_2','M_8_1_3','M_8_1_4','M_8_1_5','M_8_1_6','M_8_1_7',
@@ -135,21 +126,13 @@ def main():
         
                 if not report_df.empty:
                     st.write("Datele necesare generarii raportelor au fost citite!")
-                    csv = report_df.to_csv(index=False).encode("utf-8-sig")
-                    csv1 = report_df_1.to_csv(index=False).encode("utf-8-sig")
-                    csv2 = report_df_2.to_csv(index=False).encode("utf-8-sig")
-                    csv3 = report_df_3.to_csv(index=False).encode("utf-8-sig")
-                    csv4 = report_df_4.to_csv(index=False).encode("utf-8-sig")
-                    csv5 = report_df_5.to_csv(index=False).encode("utf-8-sig")
+                    #csv = report_df.to_csv(index=False).encode("utf-8-sig")
+                    #csv1 = report_df_1.to_csv(index=False).encode("utf-8-sig")
+                    #csv2 = report_df_2.to_csv(index=False).encode("utf-8-sig")
+                    #csv3 = report_df_3.to_csv(index=False).encode("utf-8-sig")
+                    #csv4 = report_df_4.to_csv(index=False).encode("utf-8-sig")
+                    #csv5 = report_df_5.to_csv(index=False).encode("utf-8-sig")
                     
-                    #st.download_button("Download Report Word", docum, "report.doc")
-                    #st.download_button("Report cursuri/aplicatii", csv, "report_cursuri.csv", "text/csv")
-                    #st.download_button("Report competente", csv1, "report_competente_.csv", "text/csv")
-                    #st.download_button("Report preconditii", csv2, "report_preconditii.csv", "text/csv")
-                    #st.download_button("Report conditii", csv3, "report_conditii.csv", "text/csv")
-                    #st.download_button("Report obiective specifice", csv4, "report_obiective.csv", "text/csv")
-                    #st.download_button("Report titulati discipline", csv5, "report_titulari.csv", "text/csv")
-
                     docx_file = generate_docx_with_table(report_df, "Raport cursuri si aplicatii")
                     docx_file_1 = generate_docx_with_table(report_df_1, "Raport competente")
                     docx_file_2 = generate_docx_with_table(report_df_2, "Raport preconditii")
