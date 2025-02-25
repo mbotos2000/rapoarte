@@ -19,7 +19,7 @@ def generate_docx_with_table(dataframe, titlu):
     
     # Add a table with the same number of rows and columns as the DataFrame
     table = doc.add_table(rows=1, cols=len(dataframe.columns))
-    table.allow_autofit
+    table.allow_autofit=True
     table.style = 'Light List'  # You can choose any available style
     
     # Add the header row.
