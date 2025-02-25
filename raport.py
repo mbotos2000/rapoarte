@@ -7,25 +7,26 @@ from docx import Document
 from io import BytesIO
 from docx.shared import Inches
 from docx.enum.section import WD_ORIENT
-from docx.enum.section import WD_ORIENT
-from docx.oxml import OxmlElement, nsmap
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn  # qn handles proper namespacing
 
 def set_table_autofit(table):
-    """Ensures the table fits its content."""
+    """Ensures the table resizes dynamically to fit its content."""
     tbl = table._element
-    tblPr = tbl.find(".//w:tblPr", nsmap)
-    
+    tblPr = tbl.find(qn("w:tblPr"))
+
     if tblPr is None:
         tblPr = OxmlElement("w:tblPr")
         tbl.insert(0, tblPr)
 
-    tblLayout = tblPr.find(".//w:tblLayout", nsmap)
-    
+    tblLayout = tblPr.find(qn("w:tblLayout"))
+
     if tblLayout is None:
         tblLayout = OxmlElement("w:tblLayout")
         tblPr.append(tblLayout)
 
-    tblLayout.set("w:type", "autofit")  # Ensures the table resizes dynamically
+    tblLayout.set(qn("w:type"), "autofit")  # Ensures Word recognizes it properly
+
 
 def generate_docx_with_table(dataframe, titlu):
     """Generates a DOCX file with a table from a DataFrame and returns it as a BytesIO object."""
