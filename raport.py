@@ -6,9 +6,11 @@ import pandas as pd
 from docx import Document
 from io import BytesIO
 from docx.shared import Inches
-
+from docx.enum.section import WD_ORIENT
 def generate_docx_with_table(dataframe, titlu):
     doc = Document()
+    section = doc.sections[0]
+    section.orientation = WD_ORIENT.LANDSCAPE
     doc.add_heading(titlu, level=1)
     
     # Add a table with the same number of rows and columns as the DataFrame
