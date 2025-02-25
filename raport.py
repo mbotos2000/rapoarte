@@ -56,7 +56,7 @@ def generate_docx_with_table(dataframe, titlu):
             row_cells[i].text = str(item)
     
     # Apply autofit to make the table fit its content
-    set_table_autofit(table)
+    #set_table_autofit(table)
 
     # Save the DOCX file to an in-memory bytes buffer
     buffer = BytesIO()
