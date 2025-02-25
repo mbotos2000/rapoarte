@@ -11,6 +11,9 @@ def generate_docx_with_table(dataframe, titlu):
     doc = Document()
     section = doc.sections[0]
     section.orientation = WD_ORIENT.LANDSCAPE
+    new_width, new_height = section.page_height, section.page_width
+    section.page_width = new_width
+    section.page_height = new_height
     doc.add_heading(titlu, level=1)
     
     # Add a table with the same number of rows and columns as the DataFrame
