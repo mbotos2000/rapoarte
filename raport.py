@@ -106,7 +106,8 @@ def main():
                 filtered_df = filtered_df[filtered_df["M_2_7_1"].isin(selected_categories)]
                 filtered_df = filtered_df[filtered_df["M_2_7_2"].isin(selected_categories_1)]
                 filtered_df = filtered_df[filtered_df["M_2_4"].isin(selected_categories_2)]
-                filtered_df = filtered_df.sort_values(by='M_1_8')
+                filtered_df['ordonare']=float(filtered_df['M_1_8'])
+                filtered_df = filtered_df.sort_values(by='ordonare')
                 filtered_df['Cod disciplina']=filtered_df['M_1_8']
                 filtered_df['Denumire disciplina']=filtered_df['M_2_1']
                 filtered_df['Titularul de curs']=filtered_df['M_2_2']
