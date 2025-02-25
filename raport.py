@@ -7,40 +7,62 @@ from docx import Document
 from io import BytesIO
 from docx.shared import Inches
 from docx.enum.section import WD_ORIENT
-#from docx.oxml import OxmlElement
-#from docx.oxml.ns import nsmap
+from docx.enum.section import WD_ORIENT
+from docx.oxml import OxmlElement, nsmap
+
+def set_table_autofit(table):
+    """Ensures the table fits its content."""
+    tbl = table._element
+    tblPr = tbl.find(".//w:tblPr", nsmap)
+    
+    if tblPr is None:
+        tblPr = OxmlElement("w:tblPr")
+        tbl.insert(0, tblPr)
+
+    tblLayout = tblPr.find(".//w:tblLayout", nsmap)
+    
+    if tblLayout is None:
+        tblLayout = OxmlElement("w:tblLayout")
+        tblPr.append(tblLayout)
+
+    tblLayout.set("w:type", "autofit")  # Ensures the table resizes dynamically
 
 def generate_docx_with_table(dataframe, titlu):
+    """Generates a DOCX file with a table from a DataFrame and returns it as a BytesIO object."""
     doc = Document()
+    
+    # Set landscape orientation
     section = doc.sections[0]
     section.orientation = WD_ORIENT.LANDSCAPE
-    new_width, new_height = section.page_height, section.page_width
-    section.page_width = new_width
-    section.page_height = new_height
+    section.page_width, section.page_height = section.page_height, section.page_width
+    
+    # Add title
     doc.add_heading(titlu, level=1)
     
-    # Add a table with the same number of rows and columns as the DataFrame
+    # Create table with the same number of columns as the DataFrame
     table = doc.add_table(rows=1, cols=len(dataframe.columns))
-    table.style = 'Light List'  # You can choose any available style
+    table.style = "Table Grid"  # You can change the style
     
-    # Add the header row.
+    # Add header row
     hdr_cells = table.rows[0].cells
     for i, column in enumerate(dataframe.columns):
         hdr_cells[i].text = str(column)
-    
-    # Add the rest of the data rows.
-    for index, row in dataframe.iterrows():
+
+    # Add data rows
+    for _, row in dataframe.iterrows():
         row_cells = table.add_row().cells
         for i, item in enumerate(row):
             row_cells[i].text = str(item)
-    #tbl = table._element
-    #tbl.set("w:tblLayout", "autofit")
-    # Save the DOCX file to an in-memory bytes buffer.
+    
+    # Apply autofit to make the table fit its content
+    set_table_autofit(table)
+
+    # Save the DOCX file to an in-memory bytes buffer
     buffer = BytesIO()
     doc.save(buffer)
     buffer.seek(0)
+    
     return buffer
-
 @st.cache_data(show_spinner=False)
 def load_data_from_ftp():
     
