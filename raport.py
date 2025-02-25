@@ -7,6 +7,9 @@ from docx import Document
 from io import BytesIO
 from docx.shared import Inches
 from docx.enum.section import WD_ORIENT
+from docx.oxml import OxmlElement
+from docx.oxml.ns import nsmap
+
 def generate_docx_with_table(dataframe, titlu):
     doc = Document()
     section = doc.sections[0]
@@ -30,7 +33,8 @@ def generate_docx_with_table(dataframe, titlu):
         row_cells = table.add_row().cells
         for i, item in enumerate(row):
             row_cells[i].text = str(item)
-    
+    tbl = table._element
+    tbl.set("w:tblLayout", "autofit")
     # Save the DOCX file to an in-memory bytes buffer.
     buffer = BytesIO()
     doc.save(buffer)
