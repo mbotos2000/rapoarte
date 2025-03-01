@@ -98,7 +98,7 @@ def main():
         df['Titulari']=df[['M_2_2','M_2_3']].agg(lambda x: ' '.join(x) + '\n', axis=1)
         df['Obiective']=df[['M_7_1','M_7_2']].agg(lambda x: ' '.join(x) + '\n', axis=1)
         unique_values = df['M_1_6'].dropna().unique()
-        specializarea = st.selectbox("Selecteaza scpecializarea ", list(unique_values))
+        specializarea = st.selectbox("Selecteaza specializarea ", list(unique_values))
         if specializarea!=None:
             filtered_df = df.copy()
             filtered_df = filtered_df.sort_values(by='M_1_8')
