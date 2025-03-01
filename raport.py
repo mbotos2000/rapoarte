@@ -82,7 +82,9 @@ def load_data_from_ftp():
 
 def main():
     st.title("Generator rapoarte specializari")
-    
+    if "refresh_count" not in st.session_state:
+        st.session_state.refresh_count = 0
+
     df = load_data_from_ftp()
 
     if df is not None:
@@ -184,6 +186,9 @@ def main():
                         file_name="Raport_CD.docx",
                         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     )
+                    if st.button("Refresh"):
+                        st.session_state.refresh_count += 1
+                        st.rerun()
 
 if __name__ == "__main__":
     main()
