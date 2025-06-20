@@ -41,8 +41,10 @@ def generate_docx_with_table(dataframe, titlu):
     return buffer
 @st.cache_data(show_spinner=False)
 def load_data_from_ftp():
-    
-    ftp = ftplib.FTP("users.utcluj.ro", st.secrets['u'], st.secrets['p'])
+    ftp = ftplib.FTP_TLS("users.utcluj.ro")
+    ftp.login(user=st.secrets['u'], passwd=st.secrets['p'])
+    ftp.prot_p()
+    #ftp = ftplib.FTP("users.utcluj.ro", st.secrets['u'], st.secrets['p'])
     ftp.encoding = "utf-8"  # Force UTF-8 encoding
     ftp.cwd('/public_html/Fise')
 
