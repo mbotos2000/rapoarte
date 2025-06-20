@@ -46,7 +46,7 @@ def load_data_from_ftp():
     ftp.prot_p()
     #ftp = ftplib.FTP("users.utcluj.ro", st.secrets['u'], st.secrets['p'])
     ftp.encoding = "utf-8"  # Force UTF-8 encoding
-    ftp.cwd('/public_html/Fise')
+    ftp.cwd('/public_html/Fise/2025')
 
     # List all files in the directory
     files = ftp.nlst()
