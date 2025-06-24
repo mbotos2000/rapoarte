@@ -126,7 +126,7 @@ def main():
                 filtered_df['Tipul de evaluare']=filtered_df['M_2_6']
                 filtered_df['Regimul disciplinei']=filtered_df['M_2_7_1']
                 filtered_df['Numar credite']=filtered_df['M_3_11']
-                
+                report_df = filtered_df[['Cod disciplina','Denumire disciplina']]
                 report_df = filtered_df[['Cod disciplina','Denumire disciplina','Cursuri','Aplicatii']]
                 report_df_1 = filtered_df[['Cod disciplina','Denumire disciplina','Competente']]
                 report_df_2 = filtered_df[['Cod disciplina','Denumire disciplina','Preconditii']]
@@ -144,7 +144,7 @@ def main():
                     #csv3 = report_df_3.to_csv(index=False).encode("utf-8-sig")
                     #csv4 = report_df_4.to_csv(index=False).encode("utf-8-sig")
                     #csv5 = report_df_5.to_csv(index=False).encode("utf-8-sig")
-                    
+                    docx_file_0 = generate_docx_with_table(report_df_0, "Raport fise introduse in baza de date")
                     docx_file = generate_docx_with_table(report_df, "Raport cursuri si aplicatii")
                     docx_file_1 = generate_docx_with_table(report_df_1, "Raport competente")
                     docx_file_2 = generate_docx_with_table(report_df_2, "Raport preconditii")
@@ -152,6 +152,12 @@ def main():
                     docx_file_4 = generate_docx_with_table(report_df_4, "Raport obiective")
                     docx_file_5 = generate_docx_with_table(report_df_5, "Raport cadre didactice")
                     # Create a download button
+                    st.download_button(
+                        label="Raport fise discipline introduse",
+                        data=docx_file_0,
+                        file_name="Raport_fise_discipline.docx",
+                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    )
                     st.download_button(
                         label="Raport continuturi discipline .docx",
                         data=docx_file,
