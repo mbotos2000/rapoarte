@@ -126,7 +126,7 @@ def main():
                 filtered_df['Tipul de evaluare']=filtered_df['M_2_6']
                 filtered_df['Regimul disciplinei']=filtered_df['M_2_7_1']
                 filtered_df['Numar credite']=filtered_df['M_3_11']
-                report_df = filtered_df[['Cod disciplina','Denumire disciplina']]
+                report_df_0 = filtered_df[['Cod disciplina','Denumire disciplina']]
                 report_df = filtered_df[['Cod disciplina','Denumire disciplina','Cursuri','Aplicatii']]
                 report_df_1 = filtered_df[['Cod disciplina','Denumire disciplina','Competente']]
                 report_df_2 = filtered_df[['Cod disciplina','Denumire disciplina','Preconditii']]
