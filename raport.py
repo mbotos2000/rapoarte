@@ -7,7 +7,28 @@ from docx import Document
 from io import BytesIO
 from docx.shared import Inches
 from docx.enum.section import WD_ORIENT
+def load_ftp_file():
+    # Establish FTP connection
 
+    #ftp_server = ftplib.FTP("users.utcluj.ro", st.secrets['u'], st.secrets['p'])
+    ftp_server = ftplib.FTP_TLS("users.utcluj.ro")
+    ftp_server.login(user=st.secrets['u'], passwd=st.secrets['p'])
+    ftp_server.prot_p()
+    
+    ftp_server.encoding = "utf-8"  # Force UTF-8 encoding
+    ftp_server.cwd('./public_html')
+
+    # Download CSV files
+    csv_data = {}
+    for filename in ["planinv_2025_v2.csv"]:
+        with BytesIO() as file_data:
+            ftp_server.retrbinary(f"RETR {filename}", file_data.write)
+            file_data.seek(0)  # Reset file pointer to the start
+            csv_data[filename] = pd.read_csv(file_data, encoding="ISO-8859-1")
+
+    # Return downloaded files
+    ftp_server.quit()
+    return csv_data["planinv_2025_v2.csv"]
 def generate_docx_with_table(dataframe, titlu):
     doc = Document()
     section = doc.sections[0]
@@ -86,7 +107,9 @@ def main():
     st.title("Generator rapoarte specializari")
     if "refresh_count" not in st.session_state:
         st.session_state.refresh_count = 0
-
+    data1=load_ftp_file()
+    data1['nume_disciplina'] = data1['nume_disciplina'].apply(strip_last)
+    data1['specializare'] = data1['specializare'].apply(strip_last)
     df = load_data_from_ftp()
 
     if df is not None:
