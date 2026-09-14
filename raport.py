@@ -131,8 +131,11 @@ def main():
         specializarea = st.selectbox("Selecteaza specializarea ", list(unique_values))
         if specializarea!=None:
             filtered_df = df.copy()
+			lista_discipline_plan_specializare = data1.copy()
+			lista_discipline_plan_specializare= lista_discipline_plan_specializare.sort_values(by='nrcrt')
             filtered_df = filtered_df.sort_values(by='M_1_8')
             filtered_df = filtered_df[filtered_df['M_1_6'] == specializarea]
+			lista_discipline_plan_specializare= lista_discipline_plan_specializare[lista_discipline_plan_specializare['specializare'] == specializarea]
             categories = df["M_2_7_1"].unique().tolist()
             selected_categories = st.multiselect("Filtreaza dupa tipul disciplinei", categories, default=categories)
             categories_1 = df["M_2_7_2"].unique().tolist()
@@ -147,6 +150,7 @@ def main():
                 filtered_df = filtered_df.sort_values(by='ordonare')
                 filtered_df['Cod disciplina']=filtered_df['M_1_8']
                 filtered_df['Denumire disciplina']=filtered_df['M_2_1']
+				missing_rows = lista_discipline_plan_specializare[~lista_discipline_plan_specializare['nume_disciplina'].isin(filtered_df['Denumire disciplina'])]
                 filtered_df['Titularul de curs']=filtered_df['M_2_2']
                 filtered_df['Titular aplicatii']=filtered_df['M_2_3']
                 filtered_df['Tipul de evaluare']=filtered_df['M_2_6']
@@ -159,7 +163,8 @@ def main():
                 report_df_3 = filtered_df[['Cod disciplina','Denumire disciplina','Conditii']]
                 report_df_4 = filtered_df[['Cod disciplina','Denumire disciplina','Obiective']]
                 report_df_5 = filtered_df[['Cod disciplina','Denumire disciplina','Titulari']]
-				report_df_6 = filtered_df[['Cod disciplina','Denumire disciplina','Rezultate']]
+                report_df_6 = filtered_df[['Cod disciplina','Denumire disciplina','Rezultate']]
+				report_df_7=missing_rows[['nrcrt','nume_disciplina']]
                 #st.write("### Generated Report")
             
         
@@ -172,9 +177,10 @@ def main():
                     #csv4 = report_df_4.to_csv(index=False).encode("utf-8-sig")
                     #csv5 = report_df_5.to_csv(index=False).encode("utf-8-sig")
                     docx_file_0 = generate_docx_with_table(report_df_0, "Raport fise introduse in baza de date")
+					docx_file_7 = generate_docx_with_table(report_df_7, "Raport fise neintroduse in baza de date")
                     docx_file = generate_docx_with_table(report_df, "Raport cursuri si aplicatii")
                     docx_file_1 = generate_docx_with_table(report_df_1, "Raport competente")
-					docx_file_6 = generate_docx_with_table(report_df_6, "Raport rezultatele invatarii")
+                    docx_file_6 = generate_docx_with_table(report_df_6, "Raport rezultatele invatarii")
                     docx_file_2 = generate_docx_with_table(report_df_2, "Raport preconditii")
                     docx_file_3 = generate_docx_with_table(report_df_3, "Raport conditii")
                     docx_file_4 = generate_docx_with_table(report_df_4, "Raport obiective")
