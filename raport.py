@@ -193,6 +193,11 @@ def main():
                         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     )
                     st.download_button(
+                        label="Raport fise discipline introduse",
+                        data=docx_file_7,
+                        file_name="Raport_fise_discipline_lipsa.docx",
+                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+                    st.download_button(
                         label="Raport continuturi discipline .docx",
                         data=docx_file,
                         file_name="Raport_continuturi.docx",
