@@ -164,7 +164,7 @@ def main():
                 report_df_4 = filtered_df[['Cod disciplina','Denumire disciplina','Obiective']]
                 report_df_5 = filtered_df[['Cod disciplina','Denumire disciplina','Titulari']]
                 report_df_6 = filtered_df[['Cod disciplina','Denumire disciplina','Rezultate']]
-				report_df_7=missing_rows[['nrcrt','nume_disciplina']]
+                report_df_7=missing_rows[['nrcrt','nume_disciplina']]
                 #st.write("### Generated Report")
             
         
@@ -177,7 +177,7 @@ def main():
                     #csv4 = report_df_4.to_csv(index=False).encode("utf-8-sig")
                     #csv5 = report_df_5.to_csv(index=False).encode("utf-8-sig")
                     docx_file_0 = generate_docx_with_table(report_df_0, "Raport fise introduse in baza de date")
-					docx_file_7 = generate_docx_with_table(report_df_7, "Raport fise neintroduse in baza de date")
+                    docx_file_7 = generate_docx_with_table(report_df_7, "Raport fise neintroduse in baza de date")
                     docx_file = generate_docx_with_table(report_df, "Raport cursuri si aplicatii")
                     docx_file_1 = generate_docx_with_table(report_df_1, "Raport competente")
                     docx_file_6 = generate_docx_with_table(report_df_6, "Raport rezultatele invatarii")
