@@ -135,7 +135,7 @@ def main():
 			lista_discipline_plan_specializare= lista_discipline_plan_specializare.sort_values(by='nrcrt')
             filtered_df = filtered_df.sort_values(by='M_1_8')
             filtered_df = filtered_df[filtered_df['M_1_6'] == specializarea]
-			lista_discipline_plan_specializare= lista_discipline_plan_specializare[lista_discipline_plan_specializare['specializare'] == specializarea]
+            lista_discipline_plan_specializare= lista_discipline_plan_specializare[lista_discipline_plan_specializare['specializare'] == specializarea]
             categories = df["M_2_7_1"].unique().tolist()
             selected_categories = st.multiselect("Filtreaza dupa tipul disciplinei", categories, default=categories)
             categories_1 = df["M_2_7_2"].unique().tolist()
