@@ -164,7 +164,8 @@ def main():
                 report_df_4 = filtered_df[['Cod disciplina','Denumire disciplina','Obiective']]
                 report_df_5 = filtered_df[['Cod disciplina','Denumire disciplina','Titulari']]
                 #report_df_6 = filtered_df[['Cod disciplina','Denumire disciplina','Rezultate']]
-                report_df_7=missing_rows[['nrcrt','nume_disciplina']]
+				unique_rows = missing_rows.drop_duplicates(subset=['nrcrt'])
+                report_df_7=unique_rows[['nrcrt','nume_disciplina']]
                 #st.write("### Generated Report")
             
         
