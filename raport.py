@@ -124,7 +124,7 @@ def main():
         df['Preconditii']=df[['M_4_1','M_4_2']].agg(lambda x: ' '.join(x) + '\n', axis=1)
         df['Conditii']=df[['M_5_1','M_5_2']].agg(lambda x: ' '.join(x) + '\n', axis=1)
         df['Competente']=df[['M_6_cp','M_6_ct']].agg(lambda x: ' '.join(x) + '\n', axis=1)
-        df['Rezultate']=df[['M_r_c','M_r_a','M_r_r']].agg(lambda x: ' '.join(x) + '\n', axis=1)
+        #df['Rezultate']=df[['M_r_c','M_r_a','M_r_r']].agg(lambda x: ' '.join(x) + '\n', axis=1)
         df['Titulari']=df[['M_2_2','M_2_3']].agg(lambda x: ' '.join(x) + '\n', axis=1)
         df['Obiective']=df[['M_7_1','M_7_2']].agg(lambda x: ' '.join(x) + '\n', axis=1)
         unique_values = df['M_1_6'].dropna().unique()
@@ -163,7 +163,7 @@ def main():
                 report_df_3 = filtered_df[['Cod disciplina','Denumire disciplina','Conditii']]
                 report_df_4 = filtered_df[['Cod disciplina','Denumire disciplina','Obiective']]
                 report_df_5 = filtered_df[['Cod disciplina','Denumire disciplina','Titulari']]
-                report_df_6 = filtered_df[['Cod disciplina','Denumire disciplina','Rezultate']]
+                #report_df_6 = filtered_df[['Cod disciplina','Denumire disciplina','Rezultate']]
                 report_df_7=missing_rows[['nrcrt','nume_disciplina']]
                 #st.write("### Generated Report")
             
@@ -180,7 +180,7 @@ def main():
                     docx_file_7 = generate_docx_with_table(report_df_7, "Raport fise neintroduse in baza de date")
                     docx_file = generate_docx_with_table(report_df, "Raport cursuri si aplicatii")
                     docx_file_1 = generate_docx_with_table(report_df_1, "Raport competente")
-                    docx_file_6 = generate_docx_with_table(report_df_6, "Raport rezultatele invatarii")
+                    #docx_file_6 = generate_docx_with_table(report_df_6, "Raport rezultatele invatarii")
                     docx_file_2 = generate_docx_with_table(report_df_2, "Raport preconditii")
                     docx_file_3 = generate_docx_with_table(report_df_3, "Raport conditii")
                     docx_file_4 = generate_docx_with_table(report_df_4, "Raport obiective")
