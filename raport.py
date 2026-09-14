@@ -7,6 +7,8 @@ from docx import Document
 from io import BytesIO
 from docx.shared import Inches
 from docx.enum.section import WD_ORIENT
+def strip_last(x):
+	return x.strip()
 def load_ftp_file():
     # Establish FTP connection
 
