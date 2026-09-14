@@ -150,7 +150,7 @@ def main():
                 filtered_df = filtered_df.sort_values(by='ordonare')
                 filtered_df['Cod disciplina']=filtered_df['M_1_8']
                 filtered_df['Denumire disciplina']=filtered_df['M_2_1']
-				missing_rows = lista_discipline_plan_specializare[~lista_discipline_plan_specializare['nume_disciplina'].isin(filtered_df['Denumire disciplina'])]
+                missing_rows = lista_discipline_plan_specializare[~lista_discipline_plan_specializare['nume_disciplina'].isin(filtered_df['Denumire disciplina'])]
                 filtered_df['Titularul de curs']=filtered_df['M_2_2']
                 filtered_df['Titular aplicatii']=filtered_df['M_2_3']
                 filtered_df['Tipul de evaluare']=filtered_df['M_2_6']
