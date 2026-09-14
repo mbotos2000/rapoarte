@@ -132,7 +132,7 @@ def main():
         if specializarea!=None:
             filtered_df = df.copy()
             lista_discipline_plan_specializare = data1.copy()
-			lista_discipline_plan_specializare= lista_discipline_plan_specializare.sort_values(by='nrcrt')
+            lista_discipline_plan_specializare= lista_discipline_plan_specializare.sort_values(by='nrcrt')
             filtered_df = filtered_df.sort_values(by='M_1_8')
             filtered_df = filtered_df[filtered_df['M_1_6'] == specializarea]
             lista_discipline_plan_specializare= lista_discipline_plan_specializare[lista_discipline_plan_specializare['specializare'] == specializarea]
